@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calcule quanto tempo falta para sua aposentadoria!"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Escolha o sexo:"
+            android:layout_marginBottom="4dp" />
+
+        <Spinner
+            android:id="@+id/spinner_sexo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de nascimento (dd/MM/yyyy):"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/edit_text_data_nascimento"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:hint="Ex: 20/05/1990"
+            android:inputType="date"
+            android:autofillHints="birthDate"
+            android:focusable="false"
+            android:layout_marginBottom="8dp"
+            android:padding="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anos de contribuição:"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/edit_text_contribuicao"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:hint="Ex: 12"
+            android:inputType="number"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/button_calcular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calcular"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/text_view_resultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>
