@@ -62,9 +62,10 @@
             android:layout_height="48dp"
             android:minHeight="48dp"
             android:hint="Ex: 12"
-            android:inputType="number"
+            android:inputType="numberSigned"
             android:layout_marginBottom="12dp"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:cursorVisible="false"/>
 
         <Button
             android:id="@+id/button_calcular"

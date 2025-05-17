@@ -79,7 +79,9 @@ class MainActivity : Activity() {
 
             val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
             val dataNascimento = try {
-                LocalDate.parse(dataNascTexto, formatter)
+                LocalDate.parse(dataNascTexto, formatter).also {
+                    dataNascimentoSelecionada = it  // Atualiza a variável usada pelo DatePicker
+                }
             } catch (e: Exception) {
                 textViewResultado.text = "Data inválida. Use o formato dd/mm/yyyy."
                 return@setOnClickListener
@@ -98,24 +100,36 @@ class MainActivity : Activity() {
             val idadeMinima = if (sexoSelecionado == "masculino") 65 else 62
             val tempoContribMin = if (sexoSelecionado == "masculino") 35 else 30
 
+            val dataAposentadoriaPorIdade = dataNascimento.plusYears(idadeMinima.toLong())
+            val diasParaAposentadoriaIdade = ChronoUnit.DAYS.between(hoje, dataAposentadoriaPorIdade)
+
             val faltamIdade = idadeMinima - idadeAtual
             val faltamContribuicao = tempoContribMin - anosContribuidos
+
+            // Considera que 1 ano de contribuição equivale a 365 dias
+            val diasParaAposentadoriaContrib = if (faltamContribuicao > 0)
+                faltamContribuicao * 365L
+            else 0L
 
             val criterio = when {
                 faltamIdade <= 0 && faltamContribuicao <= 0 ->
                     "Você já pode se aposentar por idade e por tempo de contribuição!"
 
                 faltamIdade <= 0 ->
-                    "Você já pode se aposentar por idade, mas falta $faltamContribuicao anos de contribuição."
+                    "Você já pode se aposentar por idade.\nFaltam $faltamContribuicao anos " +
+                            "(${diasParaAposentadoriaContrib} dias) de contribuição."
 
                 faltamContribuicao <= 0 ->
-                    "Você já pode se aposentar por tempo de contribuição, mas faltam $faltamIdade anos de idade."
+                    "Você já pode se aposentar por tempo de contribuição.\nFaltam $faltamIdade anos " +
+                            "(${diasParaAposentadoriaIdade} dias) de idade."
 
                 else -> {
                     if (faltamIdade <= faltamContribuicao) {
-                        "Você se aposentará primeiro por idade. Faltam $faltamIdade anos."
+                        "Você se aposentará primeiro por idade.\nFaltam $faltamIdade anos " +
+                                "(${diasParaAposentadoriaIdade} dias)."
                     } else {
-                        "Você se aposentará primeiro por tempo de contribuição. Faltam $faltamContribuicao anos."
+                        "Você se aposentará primeiro por tempo de contribuição.\nFaltam $faltamContribuicao anos " +
+                                "(${diasParaAposentadoriaContrib} dias)."
                     }
                 }
             }
